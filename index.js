@@ -30,7 +30,34 @@ app.get('/api/loans', (req, res) => {
     ]
   });
 });
+// Route pour créer une nouvelle demande de prêt
+app.post('/api/loans', (req, res) => {
+  // Récupérer les données envoyées
+  const { type, amount, name, email } = req.body;
 
+  // Vérifier que toutes les données nécessaires sont présentes
+  if (!type || !amount || !name || !email) {
+    return res.status(400).json({
+      error: 'Faltan datos obligatorios'
+    });
+  }
+
+  // Simuler la création d'une demande
+  const newLoan = {
+    id: Date.now(),
+    type,
+    amount,
+    name,
+    email,
+    status: 'En revisión',
+    createdAt: new Date()
+  };
+
+  res.status(201).json({
+    message: 'Solicitud de préstamo creada con éxito',
+    loan: newLoan
+  });
+});
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
