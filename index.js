@@ -106,7 +106,43 @@ app.get('/api/loans', async (req, res) => {
     });
   }
 });
+// Route pour mettre à jour le statut d'un prêt
+app.put('/api/loans/:id/status', async (req, res) => {
+  try {
+    const { status } = req.body;
+    
+    // Vérifier que le statut est valide
+    const validStatus = ['En revisión', 'Aprobado', 'Rechazado', 'En proceso'];
+    if (!validStatus.includes(status)) {
+      return res.status(400).json({
+        error: 'Estado no válido',
+        validStatus
+      });
+    }
 
+    const loan = await Loan.findByIdAndUpdate(
+      req.params.id,
+      { status },
+      { new: true }
+    );
+
+    if (!loan) {
+      return res.status(404).json({
+        error: 'Préstamo no encontrado'
+      });
+    }
+
+    res.json({
+      message: 'Estado del préstamo actualizado',
+      loan
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: 'Error al actualizar el préstamo',
+      details: error.message
+    });
+  }
+});
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
