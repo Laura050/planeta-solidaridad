@@ -186,6 +186,42 @@ app.post('/api/loans/:id/comments', async (req, res) => {
     });
   }
 });
+// Route pour rechercher et filtrer les prêts
+app.get('/api/loans/search', async (req, res) => {
+  try {
+    const { status, type, minAmount, maxAmount } = req.query;
+    
+    // Construire le filtre
+    const filter = {};
+    
+    if (status) {
+      filter.status = status;
+    }
+    
+    if (type) {
+      filter.type = type;
+    }
+    
+    if (minAmount || maxAmount) {
+      filter.amount = {};
+      if (minAmount) filter.amount.$gte = Number(minAmount);
+      if (maxAmount) filter.amount.$lte = Number(maxAmount);
+    }
+
+    const loans = await Loan.find(filter).sort('-createdAt');
+
+    res.json({
+      message: 'Resultados de la búsqueda',
+      total: loans.length,
+      loans
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: 'Error en la búsqueda',
+      details: error.message
+    });
+  }
+});
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
