@@ -25,6 +25,13 @@ const loanSchema = new mongoose.Schema({
     type: String,
     default: 'En revisión'
   },
+  comments: [{
+    text: String,
+    createdAt: {
+      type: Date,
+      default: Date.now
+    }
+  }],
   createdAt: {
     type: Date,
     default: Date.now
