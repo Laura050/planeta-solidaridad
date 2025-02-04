@@ -215,6 +215,25 @@ app.post('/api/loans/:id/comments', async (req, res) => {
    });
  }
 });
+// Supprimer un prêt
+app.delete('/api/loans/:id', async (req, res) => {
+  try {
+    const loan = await Loan.findByIdAndDelete(req.params.id);
+    if (!loan) {
+      return res.status(404).json({
+        error: 'Préstamo no encontrado'
+      });
+    }
+    res.json({
+      message: 'Préstamo eliminado con éxito'
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: 'Error al eliminar el préstamo',
+      details: error.message
+    });
+  }
+});
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
