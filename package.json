@@ -1,5 +1,5 @@
 {
-  "name": "planeta-solidaridad",
+  "name": "planetsol",
   "private": true,
   "version": "0.1.0",
   "type": "module",
@@ -13,10 +13,11 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.0",
     "lucide-react": "^0.263.1",
-    "@/components/ui/card": "latest",
-    "@/components/ui/button": "latest",
-    "@/components/ui/tabs": "latest",
-    "@/components/ui/alert": "latest"
+    "@radix-ui/react-tabs": "^1.0.4",
+    "@radix-ui/react-slot": "^1.0.2",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "tailwind-merge": "^2.2.1"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.2.1",
