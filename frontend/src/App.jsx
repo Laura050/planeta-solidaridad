@@ -1,6 +1,6 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-import { Navbar } from './components/Navbar'
+import { Navbar } from '../components/Navbar'  // Changé ici
 import { Home } from './pages/Home'
 import { SolicitudCredito } from './pages/SolicitudCredito'
 import { SeguimientoCredito } from './pages/SeguimientoCredito'
