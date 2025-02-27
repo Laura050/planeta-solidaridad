@@ -8,9 +8,9 @@ export const SeguimientoCredito = () => {
   const [nuevoMensaje, setNuevoMensaje] = useState('')
   const [archivos, setArchivos] = useState([])
 
-  // Simular verificación de código
+  // Fonction pour vérifier le code d'accès (simulée)
   const verificarCodigo = () => {
-    // Simulación de datos de expediente
+    // Simulation - Dans une vraie application, cela appellerait un API
     setExpediente({
       codigo: codigoAcceso,
       estado: 'En Proceso',
@@ -25,7 +25,7 @@ export const SeguimientoCredito = () => {
       ]
     })
     
-    // Simulación de mensajes
+    // Messages simulés
     setMensajes([
       {
         id: 1,
@@ -44,6 +44,7 @@ export const SeguimientoCredito = () => {
     ])
   }
 
+  // Fonction pour envoyer un message
   const enviarMensaje = () => {
     if (!nuevoMensaje.trim() && archivos.length === 0) return
 
@@ -60,6 +61,7 @@ export const SeguimientoCredito = () => {
     setArchivos([])
   }
 
+  // Gestion des fichiers
   const manejarArchivos = (e) => {
     const files = Array.from(e.target.files)
     setArchivos(files.map(file => ({
@@ -68,6 +70,7 @@ export const SeguimientoCredito = () => {
     })))
   }
 
+  // Écran de vérification du code d'accès
   if (!expediente) {
     return (
       <div className="container mx-auto px-4 py-8">
@@ -94,10 +97,11 @@ export const SeguimientoCredito = () => {
     )
   }
 
+  // Écran d'information du dossier et messagerie
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-4xl mx-auto">
-        {/* Estado del expediente */}
+        {/* État du dossier */}
         <div className="bg-white p-6 rounded-lg shadow-sm mb-6">
           <div className="flex justify-between items-start mb-4">
             <div>
@@ -111,7 +115,7 @@ export const SeguimientoCredito = () => {
             </span>
           </div>
 
-          {/* Progreso */}
+          {/* Progression */}
           <div className="space-y-4">
             {expediente.pasos.map((paso, index) => (
               <div key={index} className="flex items-center">
@@ -126,14 +130,14 @@ export const SeguimientoCredito = () => {
           </div>
         </div>
 
-        {/* Mensajes */}
+        {/* Messages */}
         <div className="bg-white p-6 rounded-lg shadow-sm">
           <h3 className="text-xl font-bold mb-4 flex items-center">
-            <MessageSquare className="mr-2" />
+            <MessageSquare className="mr-2" size={20} />
             Mensajes
           </h3>
 
-          <div className="h-96 overflow-y-auto mb-4">
+          <div className="h-96 overflow-y-auto mb-4 border rounded-lg p-4">
             {mensajes.map((mensaje) => (
               <div
                 key={mensaje.id}
@@ -148,7 +152,7 @@ export const SeguimientoCredito = () => {
                   <span className="text-sm text-gray-500">{mensaje.fecha}</span>
                 </div>
                 <p className="text-gray-700">{mensaje.contenido}</p>
-                {mensaje.archivos.length > 0 && (
+                {mensaje.archivos && mensaje.archivos.length > 0 && (
                   <div className="mt-2 space-y-1">
                     {mensaje.archivos.map((archivo, index) => (
                       <div key={index} className="flex items-center text-sm text-blue-600">
@@ -162,7 +166,7 @@ export const SeguimientoCredito = () => {
             ))}
           </div>
 
-          {/* Nuevo mensaje */}
+          {/* Nouveau message */}
           <div className="space-y-2">
             <div className="flex items-center space-x-2">
               <input
